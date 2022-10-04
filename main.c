@@ -1,24 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX 10
 
-    float lista[MAX];
-    int pos, i, elementos, quant = 0, valor;
+float lista[MAX];
+int pos, i, elementos, quant = 0, valor;
 
  void acrescenta (){
-    printf("Digite a posicao do elemento que deseja inserir um novo valor:");
-        scanf("%d", &pos);
-        
-        printf("Digite o valor:");
-        scanf("%d", &valor);
+    printf("Digite a posicao do elemento que deseja acrescentar um novo elemento:");
+    scanf("%d", &pos);
     
-        for (i = elementos; i >= pos; i--)
-            lista[pos - 1] = valor;
-    
-        for (i = 0; i <= elementos-1; i++) {
-            printf(" lista[%d] = ", i+1);
-            printf(" %.f \n", lista[i]);
-        }
+    printf("Digite o valor:");
+    scanf("%d", &valor);
+
+    for (i = elementos; i >= pos; i--){
+        lista[i] = lista[i-1];
+    }
+    lista[pos-1] = valor;
  }
 
  void deleta (){
@@ -29,22 +27,27 @@
         } else {
             for (i = pos - 1; i <= elementos; i++)
                 lista[i] = lista[i + 1];
-        
-            printf(" \nExibir todos os itens da lista: \n");
-            for (i = 0; i < elementos; i++) {
-                printf(" lista[%d] = %.f\n", i+1, lista[i] );
-              
-            }
         } 
  }
 
  void visualiza (){
-        printf("sua lista esta assim\n");
-        for (i = 0; i <= elementos - 1; i++) {
-            printf(" lista[%d] = ", i+1);
-            printf(" %.f \n", lista[i]);
+        
+        fflush(stdin);
+        quant = 0;
+        
+        printf("Digite a posicao do elemento que deseja visualizar o valor:");
+        scanf("%d", &pos);
+        
+        for (i = 0; i < elementos; i++){
+            if(lista[i] != 0){
+                quant++;
+            }
         }
-        printf("Quantidade de elementos: %d", quant);
+        
+        printf("\n+---------------------------------------------------------------------------+\n");
+        printf("| O valor da posição %d é %.2f                                               |\n", pos, lista[i-1]);
+        printf("| Quantidade de elementos: %d                                                |\n", quant);
+        printf("+---------------------------------------------------------------------------+\n");
  }
 
 int main(){
@@ -54,17 +57,25 @@ int main(){
   
     printf(" \nDigite a quantidade de elementos:  ");
     scanf(" %d", &elementos);
-    printf(" \nDigite os valor para os elementos da lista: \n ");
+    if(elementos < 10 || elementos >= 0){
+        printf("Erro o tamanho da lista tem de ser entre 1 e 10");
+    }
+    printf(" \nDigite os valor para os elementos da lista: \n");
 
     for (i = 0; i < elementos; i++) {
-        printf("Posicao[%d] = ", i+1);
-        scanf(" %f", &lista[i]);
-        if (lista[i] != 0)
-        quant++;
-    }
+            printf("Posicao[%d] = ", i+1);
+            scanf("%f", &lista[i]);
+        }
+
     do{
         scanf("%c", &escolhaMenu);
-        
+
+        printf("\nEstado atual da lista:");
+        for (i = 0; i < elementos; i++) {
+            printf("\n");
+            printf("Posicao[%d] = %.2f", i+1, lista[i]);
+        }
+
         printf("\n+-------------------------------------------------------------------------+");
         printf("\n|                                                                         |");
         printf("\n| Ola bem vindo ao painel de intercao da lista, escolha a funcao desejada:|");
@@ -73,12 +84,11 @@ int main(){
         printf("\n| (3) - Visualiza                                                         |");
         printf("\n| (0) - Sair                                                              |");
         printf("\n|                                                                         |");
-        printf("\n+-------------------------------------------------------------------------+");
-
+        printf("\n+-------------------------------------------------------------------------+\n");
+        printf("OPÇÃO: ");
         scanf("%c", &escolhaMenu);
 
-        switch (escolhaMenu)
-        {
+        switch (escolhaMenu){
         case '0':
             escolhaMenu = '0';
             break;
