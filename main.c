@@ -65,7 +65,16 @@ int main(){
     do{
         scanf("%c", &escolhaMenu);
         
-        printf("\n\nOla bem vindo ao painel de intercao da lista, escolha a funcao desejada:\n \t (1) - Acrescenta\n \t (2) - Deleta\n \t (3) - Visualiza\n \t (0) - Sair\n");
+        printf("\n+-------------------------------------------------------------------------+");
+        printf("\n|                                                                         |");
+        printf("\n| Ola bem vindo ao painel de intercao da lista, escolha a funcao desejada:|");
+        printf("\n| (1) - Acrescenta                                                        |");
+        printf("\n| (2) - Deleta                                                            |");
+        printf("\n| (3) - Visualiza                                                         |");
+        printf("\n| (0) - Sair                                                              |");
+        printf("\n|                                                                         |");
+        printf("\n+-------------------------------------------------------------------------+");
+
         scanf("%c", &escolhaMenu);
 
         switch (escolhaMenu)
@@ -83,7 +92,7 @@ int main(){
             visualiza();
             break;
         default:
-            printf("Erro valor inexistente.");
+            printf("\nErro valor inexistente.\n");
             break;
         }
 
