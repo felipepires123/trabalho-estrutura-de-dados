@@ -1,81 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 10
-
-float lista[MAX];
-int pos, i, elementos, quant = 0, valor;
+float lista[10],val;
+int pos, i, ocupados = 0;
 
  void acrescenta (){
-    printf("Digite a posicao do elemento que deseja acrescentar um novo elemento:");
-    scanf("%d", &pos);
-    
-    printf("Digite o valor:");
-    scanf("%d", &valor);
+        printf("Escreva a posição que deseja colocar um valor: ");
+        scanf("%i", &pos);
 
-    for (i = elementos; i >= pos; i--){
-        lista[i] = lista[i-1];
-    }
-    lista[pos-1] = valor;
- }
-
- void deleta (){
-    printf("Digite a posicao do elemento que deseja deletar: \n ");
-        scanf(" %d", &pos);
-        if (pos > elementos + 1) {
-            printf(" \nErro, posicao invalida!\n.");
-        } else {
-            for (i = pos - 1; i <= elementos; i++)
-                lista[i] = lista[i + 1];
-        } 
- }
-
- void visualiza (){
+        printf("\nEscreva o valor que deseja inserir: ");
+        scanf("%f", &val);
         
-        fflush(stdin);
-        quant = 0;
-        
-        printf("Digite a posicao do elemento que deseja visualizar o valor:");
-        scanf("%d", &pos);
-        
-        for (i = 0; i < elementos; i++){
-            if(lista[i] != 0){
-                quant++;
+        if(ocupados == 10){
+            printf("\n\nERROLista cheia retire valores para poder inserir novos.\n\n");
+        }else{
+            
+            for (i = ocupados; i > pos; i--){
+                lista[i] = lista[i-1];
+            }
+            lista[i] = val;
+            ocupados++;
+            
+            for (int i = 0; i < ocupados; i++) {
+                printf("\nposição %i: %f",i , lista[i]);
             }
         }
         
-        printf("\n+---------------------------------------------------------------------------+\n");
-        printf("| O valor da posição %d é %.2f                                               |\n", pos, lista[i-1]);
-        printf("| Quantidade de elementos: %d                                                |\n", quant);
-        printf("+---------------------------------------------------------------------------+\n");
+ }
+
+ void deleta (){
+     
+     printf("O valor de qual posição você deseja excluir?: ");
+     scanf("%d", &pos);
+     
+    for (i = pos; i <= ocupados; i++){
+        lista[i] = lista[i + 1];
+    }
+    ocupados--;
+    
+    for (int i = 0; i < ocupados; i++) {
+        printf("\nposição %i: %f",i , lista[i]);
+    }
+ }
+
+ void visualiza (){
+     
+    for (int i = 0; i < ocupados; i++) {
+        printf("\nposição %i: %f",i , lista[i]);
+    }
+        
  }
 
 int main(){
     
-    char escolhaMenu; 
-
-  
-    printf(" \nDigite a quantidade de elementos:  ");
-    scanf(" %d", &elementos);
-    if(elementos < 10 || elementos >= 0){
-        printf("Erro o tamanho da lista tem de ser entre 1 e 10");
-    }
-    printf(" \nDigite os valor para os elementos da lista: \n");
-
-    for (i = 0; i < elementos; i++) {
-            printf("Posicao[%d] = ", i+1);
-            scanf("%f", &lista[i]);
-        }
+    
+    char escolhaMenu;
 
     do{
+        
         scanf("%c", &escolhaMenu);
-
-        printf("\nEstado atual da lista:");
-        for (i = 0; i < elementos; i++) {
-            printf("\n");
-            printf("Posicao[%d] = %.2f", i+1, lista[i]);
-        }
-
         printf("\n+-------------------------------------------------------------------------+");
         printf("\n|                                                                         |");
         printf("\n| Ola bem vindo ao painel de intercao da lista, escolha a funcao desejada:|");
@@ -99,10 +82,12 @@ int main(){
             deleta();
             break;
         case '3':
+            printf("A situação atual da sua lista é essa:\n");
             visualiza();
+            printf("\ne o numero de posições ocupadas é de : %d\n", ocupados);
             break;
         default:
-            printf("\nErro valor inexistente.\n");
+            printf("\nErro função inexistente inexistente.\n");
             break;
         }
 
